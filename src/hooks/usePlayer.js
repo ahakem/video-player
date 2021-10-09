@@ -19,9 +19,18 @@ const usePlayer = (videoElement) => {
       : videoElement.current.pause();
   }, [playerState.isPlaying, videoElement]);
 
+  const handleSpeed = (speed) => {
+    const videoSpeed = playerState.speed * (speed === "plus" ? 2 : .5);
+    videoElement.current.playbackRate = videoSpeed;
+      setPlayerState({
+        ...playerState,
+        speed: videoSpeed,
+      });
+  };
   return {
     playerState,
     togglePlay,
+    handleSpeed,
   };
 };
 

@@ -1,5 +1,4 @@
 import React, {useRef} from "react";
-import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Card,
@@ -16,11 +15,11 @@ import FastRewindIcon from '@mui/icons-material/FastRewind';
 import SpeedIcon from '@mui/icons-material/Speed';
 
 export default function Player() {
-  const theme = useTheme();
   const videoElement = useRef(null);
   const {
     playerState,
     togglePlay,
+    handleSpeed
   } = usePlayer(videoElement);
 
   const getCurrentTime = () => {
@@ -42,7 +41,9 @@ export default function Player() {
         <Box sx={{ display: "flex", flexDirection: "column", justifyContent:"space-between"}}>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent:"center" , pl: 1, pb: 1 }}>
             <Box>
-            <IconButton aria-label="slow down">
+            <IconButton 
+            disabled={playerState.speed === .5 } 
+            onClick={()=>{handleSpeed("mins")}} aria-label="slow down">
               <FastRewindIcon />
             </IconButton>
             <IconButton onClick={togglePlay} aria-label="play/pause">
@@ -51,7 +52,10 @@ export default function Player() {
               :<PauseIcon sx={{ height: 38, width: 38 }} />
             }
             </IconButton>
-            <IconButton onClick={getCurrentTime} aria-label="speed up">
+            <IconButton 
+            disabled={playerState.speed === 4 } 
+              onClick={()=>{handleSpeed("plus")}}
+             aria-label="speed up">
               <FastForwardIcon />
             </IconButton>
             </Box>
