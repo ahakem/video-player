@@ -13,13 +13,15 @@ import PauseIcon from '@mui/icons-material/Pause';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import SpeedIcon from '@mui/icons-material/Speed';
+import LinearProgress from '@mui/material/LinearProgress';
 
 export default function Player() {
   const videoElement = useRef(null);
   const {
     playerState,
     togglePlay,
-    handleSpeed
+    handleSpeed,
+    handleLiveProgress
   } = usePlayer(videoElement);
 
   const getCurrentTime = () => {
@@ -34,11 +36,14 @@ export default function Player() {
       <Card sx={{ display: "flex", flexDirection: "column" }}>
         <CardMedia
           component="video"
-          controls
+          // controls
           ref={videoElement}
+          onTimeUpdate={handleLiveProgress}
+
           src="https://s3.eu-west-1.amazonaws.com/reviewchallenge.proctorexam.com/webm/sample.webm"
         />
         <Box sx={{ display: "flex", flexDirection: "column", justifyContent:"space-between"}}>
+          <LinearProgress style={{height:15,}} variant="determinate" value={playerState.progress} />
           <Box sx={{ display: "flex", alignItems: "center", justifyContent:"center" , pl: 1, pb: 1 }}>
             <Box>
             <IconButton 
@@ -61,6 +66,7 @@ export default function Player() {
             </Box>
             <Box> <IconButton><SpeedIcon/> {playerState.speed} x</IconButton></Box>
           </Box>
+
           
         </Box>
       </Card>

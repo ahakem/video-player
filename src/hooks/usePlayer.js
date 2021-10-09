@@ -4,6 +4,7 @@ const usePlayer = (videoElement) => {
   const [playerState, setPlayerState] = useState({
     isPlaying: false,
     speed: 1,
+    progress: 0,
   });
 
   const togglePlay = () => {
@@ -27,10 +28,19 @@ const usePlayer = (videoElement) => {
         speed: videoSpeed,
       });
   };
+  const handleLiveProgress = () => {
+    const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
+    setPlayerState({
+      ...playerState,
+      progress: progress,
+    });
+  };
+  
   return {
     playerState,
     togglePlay,
     handleSpeed,
+    handleLiveProgress
   };
 };
 
