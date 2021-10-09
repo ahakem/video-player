@@ -1,9 +1,8 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, {useRef} from "react";
 import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Card,
-  CardContent,
   CardMedia,
   IconButton,
   Container,
@@ -14,6 +13,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from '@mui/icons-material/Pause';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
+import SpeedIcon from '@mui/icons-material/Speed';
 
 export default function Player() {
   const theme = useTheme();
@@ -39,9 +39,9 @@ export default function Player() {
           ref={videoElement}
           src="https://s3.eu-west-1.amazonaws.com/reviewchallenge.proctorexam.com/webm/sample.webm"
         />
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}></CardContent>
-          <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", justifyContent:"space-between"}}>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent:"center" , pl: 1, pb: 1 }}>
+            <Box>
             <IconButton aria-label="slow down">
               <FastRewindIcon />
             </IconButton>
@@ -54,7 +54,10 @@ export default function Player() {
             <IconButton onClick={getCurrentTime} aria-label="speed up">
               <FastForwardIcon />
             </IconButton>
+            </Box>
+            <Box> <IconButton><SpeedIcon/> {playerState.speed} x</IconButton></Box>
           </Box>
+          
         </Box>
       </Card>
     </Container>
