@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useRef, useEffect, useState} from "react";
 import { useTheme } from "@mui/material/styles";
 import {
   Box,
@@ -15,12 +15,23 @@ import SkipNextIcon from "@mui/icons-material/SkipNext";
 
 export default function Player() {
   const theme = useTheme();
+  const videoElement = useRef(null);
+  const [playing, setPlaying] = useState(false)
+  const togglePlay = () => {
+    setPlaying(!playing)
+  };
 
+  useEffect(() => {
+    playing
+      ? videoElement.current.play()
+      : videoElement.current.pause();
+  }, [playing, videoElement]);
   return (
     <Container>
       <Card sx={{ display: "flex", flexDirection: "column" }}>
         <CardMedia
           component="video"
+          ref={videoElement}
           src="https://s3.eu-west-1.amazonaws.com/reviewchallenge.proctorexam.com/webm/sample.webm"
         />
         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -29,7 +40,7 @@ export default function Player() {
             <IconButton aria-label="previous">
               <SkipPreviousIcon />
             </IconButton>
-            <IconButton aria-label="play/pause">
+            <IconButton onClick={togglePlay} aria-label="play/pause">
               <PlayArrowIcon sx={{ height: 38, width: 38 }} />
             </IconButton>
             <IconButton aria-label="next">
