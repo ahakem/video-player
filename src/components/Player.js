@@ -8,43 +8,51 @@ import {
   IconButton,
   Container,
 } from "@mui/material";
+import usePlayer from "../hooks/usePlayer";
 
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
+import PauseIcon from '@mui/icons-material/Pause';
+import FastForwardIcon from '@mui/icons-material/FastForward';
+import FastRewindIcon from '@mui/icons-material/FastRewind';
 
 export default function Player() {
   const theme = useTheme();
   const videoElement = useRef(null);
-  const [playing, setPlaying] = useState(false)
-  const togglePlay = () => {
-    setPlaying(!playing)
+  const {
+    playerState,
+    togglePlay,
+  } = usePlayer(videoElement);
+
+  const getCurrentTime = () => {
+    // const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
+    videoElement.current.currentTime = 100
+    const currentTime = videoElement.current.currentTime;
   };
 
-  useEffect(() => {
-    playing
-      ? videoElement.current.play()
-      : videoElement.current.pause();
-  }, [playing, videoElement]);
+ 
   return (
-    <Container>
+    <Container maxWidth="md">
       <Card sx={{ display: "flex", flexDirection: "column" }}>
         <CardMedia
           component="video"
+          controls
           ref={videoElement}
           src="https://s3.eu-west-1.amazonaws.com/reviewchallenge.proctorexam.com/webm/sample.webm"
         />
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}></CardContent>
           <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-            <IconButton aria-label="previous">
-              <SkipPreviousIcon />
+            <IconButton aria-label="slow down">
+              <FastRewindIcon />
             </IconButton>
             <IconButton onClick={togglePlay} aria-label="play/pause">
+              {!playerState.isPlaying ? 
               <PlayArrowIcon sx={{ height: 38, width: 38 }} />
+              :<PauseIcon sx={{ height: 38, width: 38 }} />
+            }
             </IconButton>
-            <IconButton aria-label="next">
-              <SkipNextIcon />
+            <IconButton onClick={getCurrentTime} aria-label="speed up">
+              <FastForwardIcon />
             </IconButton>
           </Box>
         </Box>
