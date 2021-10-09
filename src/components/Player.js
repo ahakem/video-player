@@ -24,11 +24,7 @@ export default function Player() {
     handleLiveProgress
   } = usePlayer(videoElement);
 
-  const getCurrentTime = () => {
-    // const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
-    videoElement.current.currentTime = 100
-    const currentTime = videoElement.current.currentTime;
-  };
+
 
  
   return (
