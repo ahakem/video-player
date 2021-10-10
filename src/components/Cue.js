@@ -1,12 +1,12 @@
 import React from "react";
 import {
   Box,
-  Button,
   IconButton,
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import AddCue from './AddCue'
 const useStyles = makeStyles({
   root: {
     flexDirection: "column",
@@ -44,13 +44,12 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Cue() {
+export default function Cue({videoElement}) {
   const classes = useStyles();
-
   return (
     <>
       <Box>
-        <Button variant="outlined">Add Cue</Button>
+        <AddCue videoElement={videoElement} />
       </Box>
       <Box display="flex" className={classes.root}>
         <Typography ml={2} variant="h6">

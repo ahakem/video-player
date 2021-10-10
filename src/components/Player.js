@@ -18,7 +18,7 @@ export default function Player() {
       <Card sx={{ display: "flex", flexDirection: "column" }}>
         <CardMedia
           component="video"
-          // controls
+          controls
           ref={videoElement}
           onTimeUpdate={handleLiveProgress}
           src="https://s3.eu-west-1.amazonaws.com/reviewchallenge.proctorexam.com/webm/sample.webm"
@@ -79,7 +79,7 @@ export default function Player() {
             </Box>
           </Box>
         </Box>
-        <Cue />
+        <Cue videoElement={videoElement}/>
       </Card>
     </Container>
   );
