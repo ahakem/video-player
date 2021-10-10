@@ -29,6 +29,7 @@ const useStyles = makeStyles({
     margin: 8,
     position: "relative",
     height: 8,
+    cursor: 'pointer'
   },
   cueDuration: {
     position: "absolute",
@@ -38,7 +39,8 @@ const useStyles = makeStyles({
     borderRadius:10
   },
   time:{
-    width:100
+    width:100,
+    cursor: 'pointer'
   }
 });
 export default function Cue({ videoElement }) {
@@ -69,7 +71,10 @@ export default function Cue({ videoElement }) {
   const getPointerLocation = (pointer) => {
     return (pointer * 100) / videoElement.current.duration
   }
-
+const OnSelectingCue = (target) =>{
+  videoElement.current.currentTime = target
+}
+  
   return (
     <>
       <Box>
@@ -82,10 +87,10 @@ export default function Cue({ videoElement }) {
           </Typography>
           {cueList[group].map((cue) => (
             <Box key={cue.key} className={classes.cueWraper}>
-              <Box className={classes.time}>
+              <Box onClick={()=>{OnSelectingCue(cue.currentTime)}} className={classes.time}>
                 <time>{cue.start}</time> - <time>{cue.end}</time>
               </Box>
-              <Box className={classes.timeLine}>
+              <Box onClick={()=>{OnSelectingCue(cue.currentTime)}} className={classes.timeLine}>
                 <div
                   style={{ left: `${getPointerLocation(cue.currentTime)}%`, width: 20}}
                   className={classes.cueDuration}

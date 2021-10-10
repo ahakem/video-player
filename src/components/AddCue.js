@@ -28,7 +28,6 @@ export default function AddCue({ videoElement, onAddCue }) {
   };
 
   const handleClickOpen = () => {
-    console.log(videoElement.current.currentTime, videoElement.current.duration)
     setFormData({
       name: "",
       end: "",
