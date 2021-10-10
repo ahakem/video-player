@@ -5,12 +5,16 @@ const usePlayer = (videoElement) => {
     isPlaying: false,
     speed: 1,
     progress: 0,
+    duration:null
+    
   });
 
   const togglePlay = () => {
+    console.log(videoElement.current)
     setPlayerState({
       ...playerState,
       isPlaying: !playerState.isPlaying,
+      duration: videoElement.current.duration
     });
   };
 
@@ -35,12 +39,23 @@ const usePlayer = (videoElement) => {
       progress: progress,
     });
   };
+
+  const handleUpdateProgress = (value) => {
+    debugger
+    const currentTime = (value * videoElement.current.duration) / 100;
+    videoElement.current.currentTime = currentTime
+    setPlayerState({
+      ...playerState,
+      progress: value,
+    });
+  };
   
   return {
     playerState,
     togglePlay,
     handleSpeed,
-    handleLiveProgress
+    handleLiveProgress,
+    handleUpdateProgress
   };
 };
 
