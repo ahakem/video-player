@@ -74,6 +74,17 @@ export default function Cue({ videoElement }) {
 const OnSelectingCue = (target) =>{
   videoElement.current.currentTime = target
 }
+
+const OnDeletingCue = (group, cueKey) =>{
+  const temp = {...cueList}
+  if(temp[group].length === 1){
+    delete temp[group]
+  }else{
+    const cueIndex = temp[group].findIndex((cue) => cue.key === cueKey);
+    temp[group].splice(cueIndex, 1); 
+  }
+  setCueList({...temp})
+}
   
   return (
     <>
@@ -97,7 +108,7 @@ const OnSelectingCue = (target) =>{
                 ></div>
               </Box>
               <Box>
-                <IconButton>
+                <IconButton onClick={()=>{OnDeletingCue(group, cue.key)}}>
                   <RemoveCircleOutlineIcon />
                 </IconButton>
               </Box>
