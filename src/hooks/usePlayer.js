@@ -10,7 +10,6 @@ const usePlayer = (videoElement) => {
   });
 
   const togglePlay = () => {
-    console.log(videoElement.current)
     setPlayerState({
       ...playerState,
       isPlaying: !playerState.isPlaying,
