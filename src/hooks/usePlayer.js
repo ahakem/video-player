@@ -40,7 +40,6 @@ const usePlayer = (videoElement) => {
   };
 
   const handleUpdateProgress = (value) => {
-    debugger
     const currentTime = (value * videoElement.current.duration) / 100;
     videoElement.current.currentTime = currentTime
     setPlayerState({
