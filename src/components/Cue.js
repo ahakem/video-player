@@ -46,10 +46,31 @@ const useStyles = makeStyles({
 
 export default function Cue({videoElement}) {
   const classes = useStyles();
+  const [cueList, setCueList] = React.useState({});
+  
+  const onAddCue = (data) =>{
+    if(cueList[data.name]){
+      setCueList({
+        ...cueList,
+        [data.name]:[
+          ...cueList[data.name],
+          data
+        ]
+      })
+    } else{
+      setCueList({
+        ...cueList,
+        [data.name]:[data]
+      })
+    }
+  }
+  React.useEffect(() => {
+  console.log(cueList)
+  }, [cueList])
   return (
     <>
       <Box>
-        <AddCue videoElement={videoElement} />
+        <AddCue onAddCue={onAddCue} videoElement={videoElement} />
       </Box>
       <Box display="flex" className={classes.root}>
         <Typography ml={2} variant="h6">

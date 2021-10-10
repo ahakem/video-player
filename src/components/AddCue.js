@@ -1,47 +1,49 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import {TextField, Box} from "@mui/material";
+import { TextField, Box } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function AddCue({videoElement}) {
-  
+export default function AddCue({ videoElement, onAddCue }) {
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState({
-    name:"",
-    start:"",
-    end:"",
-    currentTime: 0
+    name: "",
+    start: "",
+    end: "",
+    currentTime: 0,
   });
-  const generateCurrntTime = () =>{
+  const generateCurrntTime = () => {
     const s = parseInt(videoElement.current.currentTime % 60);
     const m = parseInt((videoElement.current.currentTime / 60) % 60);
-    const time = `${m}:${s}`
-    setFormData({
-      ...formData,
-      start: time,
-      currentTime: videoElement.current.currentTime
-    })
-  }
+    const time = `${m}:${s}`;
+    return time;
+  };
   const handleOnChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]:e.target.value,
-    })
-    console.log(formData)
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleClickOpen = () => {
-    generateCurrntTime()
+    setFormData({
+      name: "",
+      end: "",
+      start: generateCurrntTime(),
+      currentTime: videoElement.current.currentTime,
+    });
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
-  
+  const handleSubmit = () => {
+    setOpen(false);
+    onAddCue(formData);
+  };
 
   return (
     <div>
@@ -74,7 +76,7 @@ export default function AddCue({videoElement}) {
               fullWidth
               variant="standard"
             />
-              <TextField
+            <TextField
               margin="dense"
               id="end"
               name="end"
@@ -89,7 +91,7 @@ export default function AddCue({videoElement}) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Add</Button>
+          <Button onClick={handleSubmit}>Add</Button>
         </DialogActions>
       </Dialog>
     </div>
