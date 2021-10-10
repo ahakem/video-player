@@ -8,7 +8,7 @@ import FastForwardIcon from "@mui/icons-material/FastForward";
 import FastRewindIcon from "@mui/icons-material/FastRewind";
 import SpeedIcon from "@mui/icons-material/Speed";
 import LinearProgress from "@mui/material/LinearProgress";
-import Cue from './Cue'
+import CueList from './CueList'
 export default function Player() {
   const videoElement = useRef(null);
   const { playerState, togglePlay, handleSpeed, handleLiveProgress } =
@@ -79,7 +79,7 @@ export default function Player() {
             </Box>
           </Box>
         </Box>
-        <Cue videoElement={videoElement}/>
+        <CueList videoElement={videoElement}/>
       </Card>
     </Container>
   );

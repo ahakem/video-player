@@ -43,7 +43,7 @@ const useStyles = makeStyles({
     cursor: 'pointer'
   }
 });
-export default function Cue({ videoElement }) {
+export default function CueList({ videoElement }) {
   const classes = useStyles();
   const [cueList, setCueList] = React.useState({});
 
