@@ -28,6 +28,7 @@ export default function AddCue({ videoElement, onAddCue }) {
   };
 
   const handleClickOpen = () => {
+    console.log(videoElement.current.currentTime, videoElement.current.duration)
     setFormData({
       name: "",
       end: "",
@@ -71,7 +72,7 @@ export default function AddCue({ videoElement, onAddCue }) {
               id="start"
               label="Start Time"
               value={formData.start}
-              redonly
+              disabled
               type="text"
               fullWidth
               variant="standard"
